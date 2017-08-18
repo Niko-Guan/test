@@ -38,7 +38,7 @@ func NewBlock(previousBlock []byte) Block{
 	b.BlockHeader.PrevBlock = previousBlock /*previousBlock's hash*/
 	//b.BlockHeader.MerkelRoot = GenerateMerkelRoot()
 	b.BlockHeader.Timestamp = time.Now().UTC()
-	b.BlockHeader.Nonce = b.GenerateNonce(helpers.ArrayOfBytes(5,0))/*(TEST_TRANSACTION_POW_COMPLEXITY, TEST_POW_PREFIX)*/
+	b.BlockHeader.Nonce = b.GenerateNonce(helpers.ArrayOfBytes(1,0))/*(TEST_TRANSACTION_POW_COMPLEXITY, TEST_POW_PREFIX)*/
 	
 	b.Signature = b.Sign(kp)
 	
@@ -119,6 +119,21 @@ func (bs BlockSlice) PreviousBlock() *Block {
 	} else {
 		return &bs[l-1]
 	}
+}
+
+func (bl *BlockSlice) CreateNewBlock() Block {
+
+	prevBlock := bl.PreviousBlock()
+	prevBlockHash := []byte{}
+	if prevBlock != nil {
+
+		prevBlockHash = prevBlock.Hash()
+	}
+
+	b := NewBlock(prevBlockHash)
+	//b.BlockHeader.Origin = Core.Keypair.Public
+
+	return b
 }
 
 func (b *Block)GetInfo(){

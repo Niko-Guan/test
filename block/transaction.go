@@ -45,7 +45,7 @@ func NewTransaction(From, To, Payload string) Transaction{
 	
 	tr.Header.PayloadHash = helpers.SHA256([]byte(Payload))
 	tr.Header.PayloadLength = uint32(len(tr.Payload))
-	tr.Header.Nonce = tr.GenerateNonce(helpers.ArrayOfBytes(5,0))/*(TEST_TRANSACTION_POW_COMPLEXITY, TEST_POW_PREFIX)*/
+	tr.Header.Nonce = tr.GenerateNonce(helpers.ArrayOfBytes(1,0))/*(TEST_TRANSACTION_POW_COMPLEXITY, TEST_POW_PREFIX)*/
 	
 	return tr
 }
